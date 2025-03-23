@@ -16,4 +16,4 @@ For the papers, the general idea would be:
 ## Misc Resources
 | Link | Description |
 | --- | --- |
-| [Instructions]() | Final project instructions |
+| [Instructions](./Resources/Misc/COS435_Final_Project.pdf) | Final project instructions |
