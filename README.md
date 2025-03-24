@@ -1,3 +1,7 @@
+#PLEASE SEE:
+Let's edit the proposal tomorrow. I did a brief initial [write up]() (the raw files are in ). Let's take a look later on Monday and edit it. I want to add some more stuff on our RL algorithms we will use to learn optimal policy (Tabular Q-learning, Deep Q-learning, PPO, GRPO) and how we expect our algorithm to perform relative to typical delta hedging but will need to cut down on some of the words.
+
+
 # GRPO_Finance
 ## Resources
 For the papers, the general idea would be:
