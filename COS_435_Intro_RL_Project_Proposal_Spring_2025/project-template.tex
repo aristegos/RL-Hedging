@@ -29,7 +29,7 @@ The Black-Scholes-Merton's (BSM) model analytically solves for this replicating 
     \item \textbf{Stochastic Volatility:} Realistic markets exhibit non-stationary asset return volatility. BSM model, however, assumes constant volatility for stock price dynamics.
 \end{itemize}
 
-\paragraph{RL Approach:} Determining optimal hedging practices requires one to balance minimizing transaction costs while trying to hedge as perfectly as possible (so as to minimize hedged portfolio PnL). This is an incredibly difficult problem to solve for analytically. This introduces the potential to apply RL to learn optimal policy (e.g. hedging strategy). Formally we have:
+\paragraph{RL Approach:} Determining optimal hedging practices requires one to balance minimizing transaction costs while trying to hedge as perfectly as possible (so as to minimize hedged portfolio PnL variance). This is an incredibly difficult problem to solve for analytically. This introduces the potential to apply RL to learn optimal policy (e.g. hedging strategy). Formally we have:
 \begin{itemize}
     \item \textbf{Actions $a_t$:} The amount of the underlying hedged at each timestep $t$
     \item \textbf{States $S_t$:} The price of the underlying (or some time transformed variable $X_t$ which normalizes for drift in the underlying dynamics)
