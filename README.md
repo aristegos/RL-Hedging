@@ -16,6 +16,9 @@ For the papers, the general idea would be:
 | Halperin QLBS (2017) | [Link](https://arxiv.org/abs/1712.04609) | Outlines main model for optimal hedging problem. Aim to minimize cost of portfolio and riskiness. Only theory, no actual implementation. | Fixed vol, Q-learning, No trans costs, discrete & continuous state-action-space applications |
 | Stoiljkovic Application & Lit Review (2023) | [Link](https://arxiv.org/abs/2310.04336) | Overviews the Halperin model and then discusses various extensions in the literature. Recreates Halperin's results and compares to BS. Then applies to stochastic vol dynamics, transaction costs (same model as Cao (2021)) and various other applications (that aren't that useful to us). Benchmarks each relative to analytical models (we should do this). | Fixed & stochastic vol, Q-learning, trans costs, continuous state-action-space applications (can also be done discretely) |
 | Cao trans cost extension (2021) | [Link](https://arxiv.org/abs/2103.16409) | Follows similar objective to Halperin model but now with transaction costs and also stochastic vol. I think we should use this problem formulation for our project. | Fixed & stochastic vol, DPG (policy iteration similar to REINFORCE), Trans costs, continuous state-action-space application |
+| Buehler binary option RL pricing (2019) | [Link](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3355706) | Somewhat similar approach but with more complex options and transaction costs | - |
+| Du (2020) | [Link](https://cims.nyu.edu/~ritter/du2020deep.pdf) | Similar to Cao (2021) but with cash flow rewards (we should use this) and PPO | - |
+| Kolm (2019) | [Link](https://cims.nyu.edu/~ritter/kolm2019dynamic.pdf) | Very similar to Du (2020). I only rly skimmed this one, seems quite rigourous tho. References a lot to previous (non-RL) papers in the field that model transaction costs and market impact. | - |
 
 ## Misc Resources
 | Link | Description |
