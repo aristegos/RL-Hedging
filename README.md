@@ -1,5 +1,5 @@
 # PLEASE SEE:
-Let's edit the proposal tomorrow. I did a brief initial write up (see [pdf](./COS_435_Intro_RL_Project_Proposal_Spring_2025/COS_435_Proposal_Draft_1.pdf) and see [raw](./COS_435_Intro_RL_Project_Proposal_Spring_2025/project-template.tex)). Let's take a look later on Monday and edit it. I want to add some more stuff on which RL algorithms we will use to learn optimal policy (Tabular Q-learning, Deep Q-learning, PPO, GRPO) and how we expect our algorithm to perform relative to typical delta hedging but will need to cut down on some of the words.
+Let's edit the proposal tomorrow. I did a brief initial write up (see [pdf](./COS_435_Intro_RL_Project_Proposal_Spring_2025/COS_435_Proposal_Draft_1.pdf) and [raw](./COS_435_Intro_RL_Project_Proposal_Spring_2025/project-template.tex)). Let's take a look later on Monday and edit it. ~I want to add some more stuff on which RL algorithms we will use to learn optimal policy (Tabular Q-learning, Deep Q-learning, PPO, GRPO) and how we expect our algorithm to perform relative to typical delta hedging but will need to cut down on some of the words.~ Added this part. Need to cut down on words tho.
 
 
 # GRPO_Finance
