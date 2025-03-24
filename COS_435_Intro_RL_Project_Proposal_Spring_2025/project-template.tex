@@ -37,7 +37,7 @@ The Black-Scholes-Merton's (BSM) model analytically solves for this replicating 
     \item \textbf{Reward Function $R_t$:}
     Here our reward at each period $0<t<T$ is equal to our change in wealth $\Delta w_t = S_t(a_{t-1}-a_t)-\kappa|S_t(a_{t-1}-a_t)|$ minus the variance of $\Delta w_t$ scaled by some risk-aversion parameter $\lambda$
     \[R_t = \Delta w_t - \lambda\mathbb{V}[\Delta w_t] = \Delta w_t - \lambda(\Delta w_t-\mathbb{E}[\Delta w_t])^2\]
-    Note that at $t=0$ the initial change in wealth $\Delta w_0=-S_0a_0-\kappa |S_0a_0|$ as we must buy the initial replicating portfolio and at matrity we have  $\Delta w_T=S_Ta_T+\kappa |S_Ta_T|-G(S_T)$ where $G(S_T)$ is the option payoff.
+    Note that at $t=0$ the initial change in wealth $\Delta w_0=-S_0a_0-\kappa |S_0a_0|$ as we must buy the initial replicating portfolio and at matrity we have  $\Delta w_T=S_Ta_T-\kappa |S_Ta_T|-G(S_T)$ where $G(S_T)$ is the option payoff.
 \end{itemize}
 This gives final Bellman Equation \[V^{\pi}(S_t) = \mathbb{E}^{\pi}_t[R_t(S_t,a_t,S_{t+1})+\gamma V^{\pi}(S_{t+1})]\]
 \end{document}
