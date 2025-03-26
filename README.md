@@ -1,5 +1,5 @@
 # Proposal (DONE)
-Proposal has been submitted (see [pdf](./COS_435_Intro_RL_Project_Proposal_Spring_2025/COS_435_Intro_RL_Project_Proposal_Spring_2025.pdf))
+Proposal has been submitted (see [pdf](COS_435_Intro_RL_Project_Proposal_Spring_2025.pdf))
 
 
 # GRPO_Finance
