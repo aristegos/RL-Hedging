@@ -65,7 +65,7 @@ def hot_start_critic_q_func(actor,
 
     for episode in range(episodes+1):
         # decay epsilon
-        epsilon = max(epsilon * epsilon_decay ** episode,min_epsilon)
+        epsilon = max(epsilon * epsilon_decay,min_epsilon)
 
         # init
         state = env.reset()
@@ -148,9 +148,9 @@ def hot_start_critic_q_func(actor,
     
                 # print progress
                 if (episode+1) % eval_freq == 0:
-                    print(f'Episode: {episode+1} | Mean Objective: {objective:.3f} | Guess: {mean_guess:.3f}, Diff: {mean_guess - objective:.3f}')
+                    print(f'Episode: {episode+1} | Mean Objective: {objective:.3f} | Guess: {mean_guess:.3f}, Diff: {mean_guess - objective:.3f} | e: {epsilon:.3f}')
                 else:
-                    print(f'Episode: {episode+1} | Mean Objective: {objective:.3f} | Guess: {mean_guess:.3f}, Diff: {mean_guess - objective:.3f}', end = '\r')
+                    print(f'Episode: {episode+1} | Mean Objective: {objective:.3f} | Guess: {mean_guess:.3f}, Diff: {mean_guess - objective:.3f} | e: {epsilon:.3f}', end = '\r')
             else:
                 print(f'Episode: {episode+1} | Objective is nan, REINITIALIZE ALL NNs', end = '\r')
 
