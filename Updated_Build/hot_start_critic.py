@@ -14,7 +14,7 @@ from models import model_objective
             
 
 class ReplayBuffer:
-    def __init__(self, capacity=10000):
+    def __init__(self, capacity=600000):
         self.buffer = deque(maxlen=capacity)
 
     def push(self, state, action, reward, next_state, done):
@@ -39,7 +39,7 @@ def hot_start_critic_q_func(actor,
                            tau=0.00001,
                            epsilon = 1,
                            epsilon_decay = 0.9995,
-                           discount = 0.95,
+                           discount = 1.0,
                            eval_freq = 100,
                            min_epsilon = 0.0,
                           ):
@@ -57,7 +57,7 @@ def hot_start_critic_q_func(actor,
     risk_critic_optimizer = torch.optim.Adam(risk_critic.parameters(), lr=lr)
 
     # misc
-    buffer = ReplayBuffer(capacity = 5*eval_freq*env.n_steps)
+    buffer = ReplayBuffer(capacity = 600000)
     q_guess = []
     objective_per_ep = []
     w_t_per_ep = []

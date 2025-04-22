@@ -28,6 +28,7 @@ def DDPG_train(actor,
                discount = 0.95,
                eval_freq = 100,
                min_epsilon = 0.0,
+               noisy_exploration = False
               ):
     """
     Trains actor network on Black-Scholes or 
@@ -64,10 +65,13 @@ def DDPG_train(actor,
             # Add exploratory noise (Gaussian)
             state_tensor = torch.FloatTensor(state).unsqueeze(0)
             with torch.no_grad():
-                if torch.rand(1) <= epsilon:
-                    action = 100*torch.rand(1)
-                else:
-                    action = actor(state_tensor)[0]
+                if noisy_exploration: # explore by adding noise or...
+                    action = (actor(state_tensor) + torch.normal(torch.tensor([0.0]),torch.tensor([epsilon])))[0]
+                else: # explore by random action...
+                    if torch.rand(1) <= epsilon:
+                        action = 100*torch.rand(1)
+                    else:
+                        action = actor(state_tensor)[0]
             next_state, reward, done, _ = env.step(action)
             buffer.push(state, action, reward, next_state, done)
             total_reward += reward
