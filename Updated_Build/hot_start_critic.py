@@ -42,6 +42,7 @@ def hot_start_critic_q_func(actor,
                            discount = 1.0,
                            eval_freq = 100,
                            min_epsilon = 0.0,
+                            noisy_exploration = False
                           ):
     """
     Trains actor network on Black-Scholes or 
@@ -57,7 +58,7 @@ def hot_start_critic_q_func(actor,
     risk_critic_optimizer = torch.optim.Adam(risk_critic.parameters(), lr=lr)
 
     # misc
-    buffer = ReplayBuffer(capacity = 600000)
+    buffer = ReplayBuffer(capacity = 25000)
     q_guess = []
     objective_per_ep = []
     w_t_per_ep = []
@@ -77,10 +78,13 @@ def hot_start_critic_q_func(actor,
             # Add exploratory noise (Gaussian)
             state_tensor = torch.FloatTensor(state).unsqueeze(0)
             with torch.no_grad():
-                if torch.rand(1) <= epsilon:
-                    action = 100*torch.rand(1)
-                else:
-                    action = actor(state_tensor)[0]
+                if noisy_exploration: # explore by adding noise or...
+                    action = (actor(state_tensor) + torch.normal(torch.tensor([0.0]),torch.tensor([epsilon])))[0]
+                else: # explore by random action...
+                    if torch.rand(1) <= epsilon:
+                        action = 100*torch.rand(1)
+                    else:
+                        action = actor(state_tensor)[0]
             next_state, reward, done, _ = env.step(action)
             buffer.push(state, action, reward, next_state, done)
             total_reward = reward + discount * total_reward
@@ -108,7 +112,7 @@ def hot_start_critic_q_func(actor,
     
                 # update cost_critic
                 current_cost_q = cost_critic(states_tensor, actions_tensor)
-                cost_critic_loss = nn.L1Loss()(current_cost_q, expected_cost_q)
+                cost_critic_loss = nn.MSELoss()(current_cost_q, expected_cost_q)
                 
                 cost_critic_optimizer.zero_grad()
                 cost_critic_loss.backward()
@@ -116,7 +120,7 @@ def hot_start_critic_q_func(actor,
     
                 # update risk_critic
                 current_risk_q = risk_critic(states_tensor, actions_tensor)
-                risk_critic_loss = nn.L1Loss()(current_risk_q, expected_risk_q)
+                risk_critic_loss = nn.MSELoss()(current_risk_q, expected_risk_q)
                 
                 risk_critic_optimizer.zero_grad()
                 risk_critic_loss.backward()

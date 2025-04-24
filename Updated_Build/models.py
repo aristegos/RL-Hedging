@@ -6,16 +6,16 @@ class Actor(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(Actor, self).__init__()
 
-        self.fc1 = nn.Linear(state_dim, 32)
-        self.norm1 = nn.LayerNorm(32,32)
-        self.fc2 = nn.Linear(32, 64)
-        self.norm2 = nn.LayerNorm(64,64)
-        self.fc3 = nn.Linear(64, action_dim)
+        self.fc1 = nn.Linear(state_dim, 256)
+        #self.norm1 = nn.LayerNorm(256,256)
+        self.fc2 = nn.Linear(256, 256)
+        #self.norm2 = nn.LayerNorm(256,256)
+        self.fc3 = nn.Linear(256, action_dim)
 
     def forward(self, x):
-        x = self.norm1(self.fc1(x))
+        x = self.fc1(x)
         x = torch.relu(x)
-        x = self.norm2(self.fc2(x))
+        x = self.fc2(x)
         x = torch.relu(x)
         x = torch.sigmoid(self.fc3(x)) * 100.0
         return x
@@ -25,16 +25,16 @@ class DDPG_Cost_Critic(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(DDPG_Cost_Critic, self).__init__()
 
-        self.fc1 = nn.Linear(state_dim+action_dim, 32)
-        self.norm1 = nn.LayerNorm(32,32)
-        self.fc2 = nn.Linear(32, 64)
-        self.norm2 = nn.LayerNorm(64,64)
-        self.out = nn.Linear(64, 1)
+        self.fc1 = nn.Linear(state_dim+action_dim, 512)
+        #self.norm1 = nn.LayerNorm(256,256)
+        self.fc2 = nn.Linear(512, 512)
+        #self.norm2 = nn.LayerNorm(256,256)
+        self.out = nn.Linear(512, 1)
 
     def forward(self, state, action):
-        x = self.norm1(self.fc1(torch.cat([state, action], dim=1)))
+        x = self.fc1(torch.cat([state, action], dim=1))
         x = torch.relu(x)
-        x = self.norm2(self.fc2(x))
+        x = self.fc2(x)
         x = torch.relu(x)
         q_function = self.out(x)
         
@@ -44,16 +44,16 @@ class DDPG_Risk_Critic(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(DDPG_Risk_Critic, self).__init__()
         
-        self.fc1 = nn.Linear(state_dim+action_dim, 32)
-        self.norm1 = nn.LayerNorm(32,32)
-        self.fc2 = nn.Linear(32, 64)
-        self.norm2 = nn.LayerNorm(64,64)
-        self.out = nn.Linear(64, 1)
+        self.fc1 = nn.Linear(state_dim+action_dim, 512)
+        #self.norm1 = nn.LayerNorm(256,256)
+        self.fc2 = nn.Linear(512, 512)
+        #self.norm2 = nn.LayerNorm(256,256)
+        self.out = nn.Linear(512, 1)
 
     def forward(self, state, action):
-        x = self.norm1(self.fc1(torch.cat([state, action], dim=1)))
+        x = self.fc1(torch.cat([state, action], dim=1))
         x = torch.relu(x)
-        x = self.norm2(self.fc2(x))
+        x = self.fc2(x)
         x = torch.relu(x)
         q_function = self.out(x)
         
