@@ -28,7 +28,8 @@ def DDPG_train(actor,
                discount = 0.95,
                eval_freq = 100,
                min_epsilon = 0.0,
-               noisy_exploration = False
+               noisy_exploration = False,
+               inital_buffer = 100,
               ):
     """
     Trains actor network on Black-Scholes or 
@@ -46,7 +47,7 @@ def DDPG_train(actor,
     actor_optimizer = torch.optim.Adam(actor.parameters(), lr=lr)
 
     # misc
-    buffer = ReplayBuffer()
+    buffer = ReplayBuffer(capacity = 25000)
     loss_history = []
     objective_per_ep = []
     w_t_per_ep = []
@@ -78,7 +79,7 @@ def DDPG_train(actor,
             state = next_state
         
             # Update during episode if enough samples are available
-            if len(buffer) > batch_size and episode > 10:
+            if len(buffer) > batch_size and episode > inital_buffer:
                 states, actions, rewards, next_states, dones = buffer.sample(batch_size)
                 states_tensor = torch.FloatTensor(states)
                 actions_tensor = torch.FloatTensor(actions)
@@ -99,7 +100,7 @@ def DDPG_train(actor,
     
                 # update cost_critic
                 current_cost_q = cost_critic(states_tensor, actions_tensor)
-                cost_critic_loss = nn.L1Loss()(current_cost_q, expected_cost_q)
+                cost_critic_loss = nn.MSELoss()(current_cost_q, expected_cost_q)
                 
                 cost_critic_optimizer.zero_grad()
                 cost_critic_loss.backward()
@@ -107,7 +108,7 @@ def DDPG_train(actor,
     
                 # update risk_critic
                 current_risk_q = risk_critic(states_tensor, actions_tensor)
-                risk_critic_loss = nn.L1Loss()(current_risk_q, expected_risk_q)
+                risk_critic_loss = nn.MSELoss()(current_risk_q, expected_risk_q)
                 
                 risk_critic_optimizer.zero_grad()
                 risk_critic_loss.backward()
